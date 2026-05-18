@@ -1,0 +1,323 @@
+WORKING APPLICATION / SYSTEM / MODEL
+
+Project Title:
+Recognizing Vehicle Identity in Real-Time Video Streams Using Frame-to-Frame Tracking
+
+Project Description:
+This project is a real-time vehicle recognition system that reduces unnecessary frame processing in video streams. It uses frame-to-frame tracking with visual fingerprinting and Levenshtein distance to skip redundant frames. Only frames with significant visual changes are processed through YOLO-based vehicle detection, license plate recognition, and OCR text extraction.
+
+------------------------------------------------------------
+TOOLS AND PLATFORMS USED
+------------------------------------------------------------
+
+Programming Language:
+- Python
+
+Libraries and Frameworks:
+- OpenCV
+- NumPy
+- YOLO
+- EasyOCR
+- Levenshtein Distance Library
+- PyTorch
+- Ultralytics YOLO
+
+Development Tools:
+- Visual Studio Code
+- Jupyter Notebook / Google Colab
+- Git
+- GitHub
+
+Platform:
+- Windows 10 / Windows 11
+- Google Colab or local machine
+- Python environment
+
+Dataset Source:
+- Locally recorded video dataset captured at the Twin-gate of Mariano Marcos State University
+
+Input Data:
+- 1080p video stream
+- 30 frames per second
+- Vehicle footage containing sedan and tricycle classes
+
+Output:
+- Detected vehicle class
+- Detected license plate region
+- Extracted alphanumeric plate number
+- Final vehicle identity tag
+- Number of processed frames
+- Processing time results
+
+------------------------------------------------------------
+COMPUTING REQUIREMENTS
+------------------------------------------------------------
+
+Minimum Requirements:
+- Processor: Intel Core i5 or equivalent
+- RAM: 8 GB
+- Storage: At least 10 GB free space
+- GPU: Optional, but recommended
+- Operating System: Windows 10 / Windows 11
+- Python Version: Python 3.9 or higher
+
+Recommended Requirements:
+- Processor: Intel Core i7 or higher
+- RAM: 16 GB or higher
+- Storage: 20 GB or higher free space
+- GPU: NVIDIA GPU with CUDA support
+- VRAM: 4 GB or higher
+- Operating System: Windows 10 / Windows 11
+- Python Version: Python 3.10 or higher
+
+Software Requirements:
+- Python 3.9+
+- pip package manager
+- OpenCV
+- NumPy
+- PyTorch
+- Ultralytics
+- EasyOCR
+- python-Levenshtein
+
+------------------------------------------------------------
+INSTRUCTIONS ON HOW TO RUN THE PROJECT
+------------------------------------------------------------
+
+Step 1: Download or Clone the Project
+
+Open Command Prompt or Terminal and run:
+
+git clone https://github.com/yourusername/vehicle-recognition-tracking.git
+
+Then go to the project folder:
+
+cd vehicle-recognition-tracking
+
+------------------------------------------------------------
+
+Step 2: Create a Virtual Environment
+
+Run the following command:
+
+python -m venv venv
+
+Activate the virtual environment.
+
+For Windows:
+
+venv\Scripts\activate
+
+For macOS/Linux:
+
+source venv/bin/activate
+
+------------------------------------------------------------
+
+Step 3: Install Required Dependencies
+
+Run:
+
+pip install -r requirements.txt
+
+If requirements.txt is not available, install the required packages manually:
+
+pip install opencv-python numpy torch torchvision ultralytics easyocr python-Levenshtein
+
+------------------------------------------------------------
+
+Step 4: Prepare the Dataset
+
+Place the input video file inside the dataset folder.
+
+Example:
+
+dataset/input_video.mp4
+
+Make sure the video file is in a supported format such as:
+
+- .mp4
+- .avi
+- .mov
+
+------------------------------------------------------------
+
+Step 5: Prepare the YOLO Models
+
+Place the trained YOLO model files inside the models folder.
+
+Example:
+
+models/vehicle_detector.pt
+models/license_plate_detector.pt
+
+The first model is used for vehicle detection and classification.
+The second model is used for license plate localization.
+
+------------------------------------------------------------
+
+Step 6: Configure the Project
+
+Open the main configuration file or main.py.
+
+Set the correct paths for:
+
+- Input video
+- Vehicle detection model
+- License plate detection model
+- Output folder
+
+Example:
+
+VIDEO_PATH = "dataset/input_video.mp4"
+VEHICLE_MODEL_PATH = "models/vehicle_detector.pt"
+PLATE_MODEL_PATH = "models/license_plate_detector.pt"
+OUTPUT_PATH = "outputs/"
+
+Set the acceptance threshold:
+
+ACCEPTANCE_THRESHOLD = 0.49
+
+The threshold value 0.49 was used as the optimal value based on the experimental result.
+
+------------------------------------------------------------
+
+Step 7: Run the Project
+
+Run the main program:
+
+python main.py
+
+The system will start reading the video, extracting frames, comparing frame similarities, skipping redundant frames, and processing only frames with significant visual changes.
+
+------------------------------------------------------------
+
+Step 8: View the Output
+
+After running the project, check the outputs folder.
+
+The output may include:
+
+- Processed video frames
+- Vehicle detection results
+- License plate detection results
+- OCR extracted plate numbers
+- Vehicle identity logs
+- Total frames processed
+- Total processing time
+
+Example output:
+
+Vehicle Class: Sedan
+Plate Number: XBT569
+Identity Tag: Sedan-XBT569
+
+Vehicle Class: Tricycle
+Plate Number: 3112
+Identity Tag: Tricycle-3112
+
+------------------------------------------------------------
+SYSTEM WORKFLOW
+------------------------------------------------------------
+
+1. The system reads the input video.
+2. The video is divided into frames.
+3. Each frame is converted to grayscale.
+4. The frame is downscaled by 50%.
+5. A byte-level visual fingerprint is generated.
+6. The current frame is compared with the last processed frame.
+7. If the frame is redundant, it is skipped.
+8. If the frame is distinct, it is processed.
+9. YOLO detects and classifies the vehicle.
+10. The license plate detector locates the plate region.
+11. OCR extracts the plate number.
+12. The system combines the vehicle class and plate number.
+13. The final vehicle identity is logged.
+
+------------------------------------------------------------
+EXPECTED RESULT
+------------------------------------------------------------
+
+At the optimal acceptance threshold of 0.49, the system is expected to:
+
+- Detect all unique vehicles in the dataset
+- Reduce the number of processed frames
+- Reduce total processing time
+- Maintain reliable vehicle identity recognition
+- Improve efficiency compared to frame-by-frame processing
+
+Based on the experiment:
+
+- Total frames: 250,580
+- Processed frames: 68,923
+- Frame reduction: 72.49%
+- Processing time reduction: 69.66%
+- Unique vehicles detected: 475
+- Detection reliability: 100%
+
+------------------------------------------------------------
+TROUBLESHOOTING
+------------------------------------------------------------
+
+Problem:
+The program cannot find the video file.
+
+Solution:
+Check if the video path is correct and the file exists inside the dataset folder.
+
+------------------------------------------------------------
+
+Problem:
+YOLO model file is missing.
+
+Solution:
+Place the trained .pt model files inside the models folder and check if the file path is correct.
+
+------------------------------------------------------------
+
+Problem:
+EasyOCR is slow.
+
+Solution:
+Use a GPU-enabled machine or reduce the input resolution.
+
+------------------------------------------------------------
+
+Problem:
+CUDA is not detected.
+
+Solution:
+Install the correct PyTorch version with CUDA support or run the project using CPU mode.
+
+------------------------------------------------------------
+
+Problem:
+No vehicle is detected.
+
+Solution:
+Check if the trained YOLO model supports the correct vehicle classes such as sedan and tricycle.
+
+------------------------------------------------------------
+NOTES
+------------------------------------------------------------
+
+- The system is designed for real-time vehicle recognition.
+- The frame-to-frame tracking method reduces redundant processing.
+- The acceptance threshold affects the balance between speed and detection accuracy.
+- The recommended threshold value is 0.49 based on the experiment.
+- GPU is recommended for faster processing, but the system can still run on CPU.
+
+------------------------------------------------------------
+AUTHORS
+------------------------------------------------------------
+
+Jomar M. Lazaro
+Jarren A. Aceret
+Derek Luis I. Lagadon
+Gabriel Andrei P. Adajar
+
+------------------------------------------------------------
+LICENSE
+------------------------------------------------------------
+
+This project is licensed under the MIT License.
